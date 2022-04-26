@@ -1,0 +1,25 @@
+name: bump
+on:
+  workflow_call:
+    outputs:
+      tag:
+        value: ${{ jobs.bump.outputs.tag }}
+    secrets:
+      token:
+        required: true
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.bump_step.outputs.tag }}
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: '0'
+    - name: Bump version and push tag
+      id: bump_step
+      uses: uchiru/bump-version-action@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.token }}
+        WITH_V: true
