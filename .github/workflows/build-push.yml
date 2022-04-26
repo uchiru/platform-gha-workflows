@@ -34,7 +34,7 @@ jobs:
       - name: Calculate metadata
         id: meta
         run: |
-          img_name=$REGISTRY/${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}
+          img_name=${{ inputs.registry }}/${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}
           bumped_tag=${{ inputs.tag }}
           if [ ! -z $bumped_tag ]; then
             img_tag=$bumped_tag
